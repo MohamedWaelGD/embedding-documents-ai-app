@@ -1,0 +1,289 @@
+# API Contract: Document OCR, Ingestion & Semantic Search
+
+**Feature**: 001-document-ocr-search
+**Date**: 2026-08-07
+**Base URL**: `http://localhost:3000/api`
+
+## Endpoints
+
+### 1. Upload & Extract PDF
+
+```
+POST /api/ingest/upload
+```
+
+Upload a PDF file for text extraction. Returns raw extracted text.
+
+**Request**: `multipart/form-data`
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `file` | file | Yes | PDF file (max 50MB, configurable) |
+
+**Response** `200`:
+```json
+{
+  "document_id": "temp-uuid",
+  "raw_text": "Extracted text content...",
+  "page_count": 15,
+  "filename": "regulation.pdf",
+  "extraction_method": "direct" // or "ocr"
+}
+```
+
+**Errors**:
+- `400` — Invalid file type (not PDF) or size exceeded
+- `400` — No text extracted from PDF
+- `413` — File too large
+- `500` — Extraction failed
+
+---
+
+### 2. Structure & Preprocess Text
+
+```
+POST /api/ingest/structure
+```
+
+Filter, clean, chunk extracted text, then run LLM structuring. Returns raw text + structured JSON.
+
+**Request**:
+```json
+{
+  "document_id": "temp-uuid",
+  "raw_text": "Extracted text..."
+}
+```
+
+**Response** `200`:
+```json
+{
+  "document_id": "temp-uuid",
+  "raw_text": "Filtered and cleaned text...",
+  "structured_data": {
+    "id": "...",
+    "nameAr": "...",
+    "nameEn": "...",
+    "descriptionAr": "...",
+    "descriptionEn": "...",
+    "regulationTypes": [
+      {
+        "id": "...",
+        "nameAr": "...",
+        "nameEn": "...",
+        "regulationId": "...",
+        "regulationActions": [
+          {
+            "id": "...",
+            "actionAr": "...",
+            "actionEn": "...",
+            "actionType": "Penalty",
+            "penaltyValueType": "Amount",
+            "additionValueType": null,
+            "textValue": null,
+            "decimalValue": 15,
+            "daysValue": null,
+            "percentageValue": null
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Errors**:
+- `400` — Missing document_id or raw_text
+- `500` — LLM structuring failed (user can retry)
+- `408` — LLM timeout
+
+---
+
+### 3. Re-structure (after user edits plain text)
+
+```
+POST /api/ingest/restructure
+```
+
+Re-run LLM structuring with updated plain text. Same request/response as `/structure`.
+
+**Request**:
+```json
+{
+  "document_id": "temp-uuid",
+  "raw_text": "User-edited text..."
+}
+```
+
+**Response** `200`: Same shape as `/structure`
+
+---
+
+### 4. Confirm & Save
+
+```
+POST /api/ingest/confirm
+```
+
+User confirms the structured data. Saves PDF to storage, generates embeddings, persists all data.
+
+**Request**:
+```json
+{
+  "document_id": "temp-uuid",
+  "filename": "regulation.pdf",
+  "raw_text": "Final text...",
+  "structured_data": { ... }
+}
+```
+
+**Response** `200`:
+```json
+{
+  "document_id": "final-uuid",
+  "chunks_count": 42,
+  "filename": "regulation.pdf"
+}
+```
+
+**Errors**:
+- `400` — Missing required fields
+- `500` — Save or embedding generation failed
+
+---
+
+### 5. Cancel Upload
+
+```
+DELETE /api/ingest/cancel/:document_id
+```
+
+Discard an in-progress upload and clean up temp data.
+
+**Response** `200`:
+```json
+{
+  "message": "Upload cancelled"
+}
+```
+
+---
+
+### 6. Semantic Search
+
+```
+POST /api/search
+```
+
+Embed query, find matching chunks via RPC, generate LLM answer.
+
+**Request**:
+```json
+{
+  "query": "What is the penalty for unexcused delay?"
+}
+```
+
+**Response** `200`:
+```json
+{
+  "answer": "Based on the Attendance & Punctuality Regulation, the penalty for unexcused delay is a 15 amount deduction.",
+  "matched_chunks": [
+    {
+      "id": "chunk-uuid",
+      "document_id": "doc-uuid",
+      "content": "...matched chunk text...",
+      "page_number": 3,
+      "similarity": 0.87
+    }
+  ]
+}
+```
+
+**Errors**:
+- `400` — Empty query
+- `500` — Search failed
+- `408` — LLM timeout
+
+**No-results response** `200`:
+```json
+{
+  "answer": "No relevant information found in the uploaded documents.",
+  "matched_chunks": []
+}
+```
+
+---
+
+### 7. List Documents
+
+```
+GET /api/documents
+```
+
+**Response** `200`:
+```json
+{
+  "documents": [
+    {
+      "id": "uuid",
+      "filename": "regulation.pdf",
+      "created_at": "2026-08-07T10:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### 8. Download Document
+
+```
+GET /api/documents/:id/download
+```
+
+Returns the original PDF file as `application/pdf`.
+
+**Response** `200`: Binary PDF file
+**Errors**: `404` — Document not found
+
+---
+
+### 9. Delete Document
+
+```
+DELETE /api/documents/:id
+```
+
+Cascade-deletes document, chunks, embeddings, structured data, and storage file.
+
+**Response** `200`:
+```json
+{
+  "message": "Document deleted successfully"
+}
+```
+
+**Errors**: `404` — Document not found
+
+---
+
+## Error Response Format
+
+All errors follow this shape:
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Human-readable error description",
+    "details": {}
+  }
+}
+```
+
+Error codes: `VALIDATION_ERROR`, `EXTRACTION_ERROR`, `STRUCTURING_ERROR`, `EMBEDDING_ERROR`, `STORAGE_ERROR`, `SEARCH_ERROR`, `NOT_FOUND`, `TIMEOUT`, `INTERNAL_ERROR`
+
+## Timeouts
+
+- LLM calls: `LLM_TIMEOUT_MS` (default 30000ms)
+- File upload: 120s
+- All other endpoints: 30s

@@ -1,0 +1,24 @@
+<div class="min-h-screen bg-slate-50 text-slate-900">
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <span class="text-lg font-semibold tracking-tight">DocIntelligence</span>
+      <nav class="flex gap-1" aria-label="Main navigation">
+        @for (item of navItems; track item.path) {
+          <a
+            class="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-slate-200"
+            [class.bg-blue-50]="false"
+            [routerLink]="item.path"
+            routerLinkActive="!bg-blue-50 !text-blue-700"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <span aria-hidden="true">{{ item.icon }}</span>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto max-w-6xl px-4 py-6">
+    <router-outlet />
+  </main>
+</div>
