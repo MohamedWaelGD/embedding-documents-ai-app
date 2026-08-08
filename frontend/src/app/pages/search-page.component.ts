@@ -15,13 +15,16 @@ import { MatchedChunk } from '../models';
     StatusIndicatorComponent,
   ],
   template: `
-    <div class="mx-auto max-w-3xl">
-      <h1 class="mb-1 text-2xl font-semibold tracking-tight">Semantic search</h1>
-      <p class="mb-6 text-sm text-slate-500">
-        Ask a question in natural language. Answers are grounded in your uploaded documents.
-      </p>
+    <div class="mx-auto max-w-4xl">
+      <header class="mb-8">
+        <h1 class="font-serif-display text-3xl font-semibold italic text-navy-900">Semantic Search</h1>
+        <p class="mt-1.5 max-w-lg font-serif-body text-sm leading-relaxed text-navy-500">
+          Ask a question in natural language. Answers are grounded in your uploaded documents with
+          source references you can verify.
+        </p>
+      </header>
 
-      <div class="mb-4 rounded-xl border border-slate-200 bg-white p-4">
+      <div class="mb-5 rounded-xl border border-navy-200 bg-white p-5">
         <app-chat-messages [messages]="messages()" />
       </div>
 
@@ -29,18 +32,18 @@ import { MatchedChunk } from '../models';
         <app-status-indicator variant="loading" message="Searching your documents…" />
       }
       @if (error(); as message) {
-        <div class="mt-2">
+        <div class="mt-3">
           <app-status-indicator variant="error" [message]="message" />
         </div>
       }
 
       @if (references().length > 0) {
-        <div class="mt-4">
+        <div class="mt-5">
           <app-context-references [chunks]="references()" />
         </div>
       }
 
-      <div class="mt-4">
+      <div class="mt-5">
         <app-chat-input [loading]="searching()" (submitted)="ask($event)" />
       </div>
     </div>

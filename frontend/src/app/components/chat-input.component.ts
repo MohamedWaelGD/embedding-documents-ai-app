@@ -1,4 +1,5 @@
 import { Component, input, output, signal } from '@angular/core';
+import { ChatMessage } from './chat-messages.component';
 
 @Component({
   selector: 'app-chat-input',
@@ -12,12 +13,12 @@ import { Component, input, output, signal } from '@angular/core';
         (input)="onInput($event)"
         [disabled]="loading()"
         placeholder="Ask about your documents…"
-        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 disabled:cursor-not-allowed disabled:opacity-60"
+        class="w-full rounded-lg border border-navy-200 bg-white px-4 py-2.5 text-sm text-navy-800 placeholder:italic placeholder:text-navy-300 focus:border-navy-500 focus:outline-none focus:ring-1 focus:ring-navy-300 disabled:cursor-not-allowed disabled:opacity-60"
       />
       <button
         type="submit"
         [disabled]="loading() || value().trim().length === 0"
-        class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
+        class="rounded-lg bg-navy-900 px-4 py-2.5 text-sm font-medium text-parchment-100 transition-colors hover:bg-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-950 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {{ loading() ? 'Searching…' : 'Send' }}
       </button>

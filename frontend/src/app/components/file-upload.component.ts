@@ -4,12 +4,29 @@ import { Component, output, signal } from '@angular/core';
   selector: 'app-file-upload',
   template: `
     <div
-      class="flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-slate-300 bg-white px-6 py-12 text-center transition-colors"
-      [class.border-blue-400]="dragging()"
+      class="relative flex flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border-2 bg-white px-8 py-14 text-center transition-all"
+      [class.border-dashed]="!dragging()"
+      [class.border-navy-200]="!dragging()"
+      [class.border-gold-500]="dragging()"
+      [class.border-solid]="dragging()"
+      [class.bg-gold-50/30]="dragging()"
       (dragover)="onDragOver($event)"
       (dragleave)="dragging.set(false)"
       (drop)="onDrop($event)"
     >
+      <div
+        class="pointer-events-none absolute inset-2 rounded-md border border-navy-100"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="pointer-events-none absolute left-3 top-3 h-5 w-5 border-l-2 border-t-2 border-gold-400"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="pointer-events-none absolute bottom-3 right-3 h-5 w-5 border-b-2 border-r-2 border-gold-400"
+        aria-hidden="true"
+      ></div>
+
       <input
         #fileInput
         type="file"
@@ -18,20 +35,41 @@ import { Component, output, signal } from '@angular/core';
         (change)="onFileSelected($event)"
         aria-label="Select a PDF file to upload"
       />
-      <span aria-hidden="true" class="text-4xl">📄</span>
+
+      <svg
+        class="h-10 w-10 text-gold-500"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="17 8 12 3 7 8" />
+        <line x1="12" y1="3" x2="12" y2="15" />
+      </svg>
+
       <div>
-        <p class="font-medium text-slate-700">Drag and drop a PDF here, or</p>
-        <p class="mt-1 text-sm text-slate-500">Maximum file size: 50 MB</p>
+        <p class="font-serif-display text-lg font-medium italic text-navy-800">
+          {{ dragging() ? 'Release to upload' : 'Drag and drop a PDF here' }}
+        </p>
+        <p class="mt-1 font-serif-body text-xs text-navy-400">or use the button below</p>
       </div>
+
       <button
         type="button"
         (click)="fileInput.click()"
-        class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-blue-800"
+        class="rounded-md bg-navy-900 px-5 py-2 text-sm font-medium text-parchment-100 transition-colors hover:bg-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-950"
       >
         Browse files
       </button>
+
+      <p class="font-serif-display text-xs italic tracking-wide text-navy-400">Maximum file size: 50 MB</p>
+
       @if (selectedFile(); as file) {
-        <p class="mt-2 text-sm font-medium text-emerald-600" aria-live="polite">
+        <p class="animate-fade-in font-serif-display text-sm font-medium italic text-gold-700" aria-live="polite">
           Selected: {{ file.name }} ({{ formatSize(file.size) }})
         </p>
       }

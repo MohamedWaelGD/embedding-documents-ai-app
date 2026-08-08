@@ -29,43 +29,48 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
     StatusIndicatorComponent,
   ],
   template: `
-    <div class="mx-auto max-w-3xl">
-      <h1 class="mb-1 text-2xl font-semibold tracking-tight">Upload a document</h1>
-      <p class="mb-6 text-sm text-slate-500">
-        Upload a PDF. The system extracts the text, structures it, and saves it with embeddings for
-        semantic search.
-      </p>
+    <div class="mx-auto max-w-5xl">
+      <header class="mb-8">
+        <h1 class="font-serif-display text-3xl font-semibold italic text-navy-900">Upload a Document</h1>
+        <p class="mt-1.5 max-w-lg font-serif-body text-sm leading-relaxed text-navy-500">
+          Upload a regulatory PDF. The system extracts the text, structures it into regulation types
+          and actions, and generates embeddings for semantic search.
+        </p>
+      </header>
 
       @if (step() === 'idle' || step() === 'extracting') {
-        <app-file-upload
-          (fileSelected)="onFileSelected($event)"
-          [class]="step() === 'extracting' ? 'pointer-events-none opacity-60' : ''"
-        />
-      }
-
-      @if (step() === 'extracting') {
-        <app-status-indicator variant="loading" message="Extracting text from PDF…" />
+        <div class="mx-auto max-w-xl">
+          <app-file-upload
+            (fileSelected)="onFileSelected($event)"
+            [class]="step() === 'extracting' ? 'pointer-events-none opacity-50' : ''"
+          />
+          @if (step() === 'extracting') {
+            <div class="mt-6">
+              <app-status-indicator variant="loading" message="Extracting text from PDF…" />
+            </div>
+          }
+        </div>
       }
 
       @if (error(); as message) {
-        <div class="mt-4">
+        <div class="mx-auto mt-6 max-w-xl">
           <app-status-indicator variant="error" [message]="message" />
         </div>
       }
 
       @if (step() === 'review' || step() === 'structuring') {
-        <div class="mt-6">
-          <div class="mb-4 flex gap-2" role="tablist" aria-label="Review tabs">
+        <div class="mt-2">
+          <nav class="mb-6 flex gap-1 rounded-lg border border-navy-200 bg-white p-1" role="tablist" aria-label="Review tabs">
             <button
               type="button"
               role="tab"
               [attr.aria-selected]="activeTab() === 'text'"
               (click)="activeTab.set('text')"
-              class="rounded-t-lg border-b-2 px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              class="flex-1 rounded-md px-4 py-2 font-serif-display text-sm font-medium italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500"
               [class]="
                 activeTab() === 'text'
-                  ? 'border-blue-600 text-blue-700'
-                  : 'border-transparent text-slate-500 hover:text-slate-700'
+                  ? 'bg-navy-900 text-parchment-100'
+                  : 'text-navy-500 hover:text-navy-800'
               "
             >
               Plain Text
@@ -75,11 +80,11 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
               role="tab"
               [attr.aria-selected]="activeTab() === 'structured'"
               (click)="activeTab.set('structured')"
-              class="rounded-t-lg border-b-2 px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              class="flex-1 rounded-md px-4 py-2 font-serif-display text-sm font-medium italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500"
               [class]="
                 activeTab() === 'structured'
-                  ? 'border-blue-600 text-blue-700'
-                  : 'border-transparent text-slate-500 hover:text-slate-700'
+                  ? 'bg-navy-900 text-parchment-100'
+                  : 'text-navy-500 hover:text-navy-800'
               "
             >
               Structured Data
@@ -89,19 +94,21 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
               role="tab"
               [attr.aria-selected]="activeTab() === 'chunks'"
               (click)="activeTab.set('chunks')"
-              class="rounded-t-lg border-b-2 px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              class="flex-1 rounded-md px-4 py-2 font-serif-display text-sm font-medium italic transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500"
               [class]="
                 activeTab() === 'chunks'
-                  ? 'border-blue-600 text-blue-700'
-                  : 'border-transparent text-slate-500 hover:text-slate-700'
+                  ? 'bg-navy-900 text-parchment-100'
+                  : 'text-navy-500 hover:text-navy-800'
               "
             >
               Chunks
             </button>
-          </div>
+          </nav>
 
           @if (step() === 'structuring') {
-            <app-status-indicator variant="loading" message="Structuring content with the LLM…" />
+            <div class="mb-6">
+              <app-status-indicator variant="loading" message="Structuring content with the LLM…" />
+            </div>
           }
 
           @if (activeTab() === 'text') {
@@ -117,11 +124,11 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
             <app-chunks-viewer [chunks]="chunks()" />
           }
 
-          <div class="mt-6 flex items-center justify-between">
+          <div class="mt-8 flex items-center justify-between border-t border-navy-200 pt-6">
             <button
               type="button"
               (click)="cancel()"
-              class="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 active:bg-slate-200"
+              class="rounded-md border border-navy-300 px-5 py-2.5 font-serif-display text-sm font-medium italic text-navy-500 transition-colors hover:border-navy-500 hover:text-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-50"
             >
               Cancel
             </button>
@@ -129,7 +136,7 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
               type="button"
               (click)="confirm()"
               [disabled]="!canConfirm() || step() === 'saving'"
-              class="rounded-md bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 active:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
+              class="rounded-md bg-navy-900 px-6 py-2.5 font-serif-display text-sm font-medium italic text-parchment-100 transition-colors hover:bg-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-950 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {{ step() === 'saving' ? 'Saving…' : 'Confirm & Save' }}
             </button>
@@ -138,22 +145,22 @@ type Step = 'idle' | 'extracting' | 'review' | 'structuring' | 'saving' | 'done'
       }
 
       @if (step() === 'done') {
-        <div class="mt-6">
+        <div class="mx-auto max-w-xl">
           <app-status-indicator
             variant="success"
             [message]="'Document saved successfully (' + savedChunks() + ' chunks indexed).'"
           />
-          <div class="mt-4 flex justify-center gap-3">
+          <div class="mt-6 flex justify-center gap-4">
             <button
               type="button"
               (click)="reset()"
-              class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-blue-800"
+              class="rounded-md bg-navy-900 px-5 py-2.5 font-serif-display text-sm font-medium italic text-parchment-100 transition-colors hover:bg-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-950"
             >
               Upload another document
             </button>
             <a
               routerLink="/search"
-              class="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100"
+              class="rounded-md border border-navy-300 px-5 py-2.5 font-serif-display text-sm font-medium italic text-navy-600 transition-colors hover:border-navy-500 hover:text-navy-800"
             >
               Try searching
             </a>

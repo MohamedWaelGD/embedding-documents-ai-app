@@ -10,7 +10,7 @@ import { DocumentRecord } from '../models';
         type="button"
         (click)="onDownload()"
         [disabled]="busy()"
-        class="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 active:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+        class="rounded-md border border-navy-300 px-3 py-1.5 text-xs font-medium text-navy-600 transition-colors hover:border-navy-500 hover:text-navy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 active:bg-navy-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
         Download
       </button>
@@ -18,7 +18,7 @@ import { DocumentRecord } from '../models';
         type="button"
         (click)="onDelete()"
         [disabled]="busy()"
-        class="rounded-md border border-red-300 px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+        class="rounded-md border border-burgundy-300 px-3 py-1.5 text-xs font-medium text-burgundy-600 transition-colors hover:border-burgundy-500 hover:text-burgundy-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-burgundy-500 active:bg-burgundy-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
         Delete
       </button>

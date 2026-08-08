@@ -1,24 +1,36 @@
-<div class="min-h-screen bg-slate-50 text-slate-900">
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <span class="text-lg font-semibold tracking-tight">DocIntelligence</span>
-      <nav class="flex gap-1" aria-label="Main navigation">
-        @for (item of navItems; track item.path) {
-          <a
-            class="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 active:bg-slate-200"
-            [class.bg-blue-50]="false"
-            [routerLink]="item.path"
-            routerLinkActive="!bg-blue-50 !text-blue-700"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <span aria-hidden="true">{{ item.icon }}</span>
-            <span>{{ item.label }}</span>
-          </a>
-        }
-      </nav>
+<div class="flex min-h-screen">
+  <aside class="fixed inset-y-0 left-0 z-30 flex w-60 flex-col border-r border-navy-200 bg-navy-900">
+    <div class="flex items-center gap-3 px-6 pb-4 pt-7">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect x="2" y="4" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        <path d="M8 10h12M8 14h10M8 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="4" y="2" width="3" height="12" rx="1" fill="currentColor" opacity="0.3"/>
+      </svg>
+      <span class="font-serif-display text-xl font-semibold italic tracking-tight text-parchment-100">DocIntelligence</span>
     </div>
-  </header>
-  <main class="mx-auto max-w-6xl px-4 py-6">
-    <router-outlet />
-  </main>
+
+    <nav class="flex-1 px-3 py-4" aria-label="Main navigation">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-gold-800/15 border-gold-500 text-parchment-100"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="group mb-0.5 flex items-center gap-3 rounded-lg border-l-2 border-transparent px-3 py-2.5 text-sm font-medium text-navy-200 transition-colors hover:bg-navy-800 hover:text-parchment-100"
+        >
+          <span class="flex h-5 w-5 items-center justify-center transition-colors" aria-hidden="true" [innerHTML]="item.svgIcon"></span>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="border-t border-navy-700 px-6 py-4">
+      <p class="font-serif-display text-xs italic tracking-wide text-navy-400">Document Intelligence</p>
+    </div>
+  </aside>
+
+  <div class="ml-60 flex flex-1 flex-col">
+    <main class="flex-1 px-8 py-8">
+      <router-outlet />
+    </main>
+  </div>
 </div>

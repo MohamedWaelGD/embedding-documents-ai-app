@@ -17,26 +17,29 @@ import { DocumentActionsComponent } from './document-actions.component';
       <app-status-indicator
         variant="empty"
         message="No documents uploaded yet. Upload your first document to get started."
-        icon="📁"
       />
     } @else {
-      <div class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div class="overflow-hidden rounded-lg border border-navy-200 bg-white">
         <table class="w-full text-left text-sm">
-          <thead
-            class="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500"
-          >
+          <thead class="border-b border-navy-200 bg-parchment-100/50">
             <tr>
-              <th class="px-4 py-3 font-medium">Name</th>
-              <th class="px-4 py-3 font-medium">Uploaded</th>
-              <th class="px-4 py-3 text-right font-medium">Actions</th>
+              <th class="px-5 py-3 font-serif-display text-xs font-semibold uppercase italic tracking-wider text-navy-500">
+                Name
+              </th>
+              <th class="px-5 py-3 font-serif-display text-xs font-semibold uppercase italic tracking-wider text-navy-500">
+                Uploaded
+              </th>
+              <th class="px-5 py-3 text-right font-serif-display text-xs font-semibold uppercase italic tracking-wider text-navy-500">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
+          <tbody class="divide-y divide-navy-100">
             @for (doc of documents(); track doc.id) {
-              <tr>
-                <td class="px-4 py-3 font-medium text-slate-800">{{ doc.filename }}</td>
-                <td class="px-4 py-3 text-slate-500">{{ doc.created_at | date: 'medium' }}</td>
-                <td class="px-4 py-3 text-right">
+              <tr class="transition-colors hover:bg-parchment-50/60">
+                <td class="px-5 py-3.5 font-medium text-navy-800">{{ doc.filename }}</td>
+                <td class="px-5 py-3.5 text-navy-500">{{ doc.created_at | date: 'medium' }}</td>
+                <td class="px-5 py-3.5 text-right">
                   <app-document-actions [document]="doc" (deleted)="reload()" />
                 </td>
               </tr>

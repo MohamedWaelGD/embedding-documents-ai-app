@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-08T07:30:00.000Z",
+  "title": "Design System: DocIntelligence",
+  "extensions": {
+    "colorMeta": {
+      "navy-deep": {
+        "role": "primary",
+        "displayName": "Navy Deep",
+        "canonical": "#0f172a",
+        "tonalRamp": [
+          "#060b18",
+          "#0f172a",
+          "#1e253c",
+          "#2a3250",
+          "#36406a",
+          "#475685",
+          "#5f70a0",
+          "#8797be",
+          "#b6c0d9",
+          "#dee2ee",
+          "#eff1f7"
+        ]
+      },
+      "navy-mid": {
+        "role": "primary",
+        "displayName": "Navy Mid",
+        "canonical": "#475685",
+        "tonalRamp": ["#36406a", "#475685", "#5f70a0", "#8797be", "#b6c0d9"]
+      },
+      "navy-pale": {
+        "role": "primary",
+        "displayName": "Navy Pale",
+        "canonical": "#dee2ee",
+        "tonalRamp": ["#b6c0d9", "#dee2ee", "#eff1f7"]
+      },
+      "parchment-light": {
+        "role": "neutral",
+        "displayName": "Parchment Light",
+        "canonical": "#fefcf6",
+        "tonalRamp": ["#fefcf6", "#fef7ed", "#fcefd5", "#f8e0b0"]
+      },
+      "parchment-warm": {
+        "role": "neutral",
+        "displayName": "Parchment Warm",
+        "canonical": "#fef7ed",
+        "tonalRamp": ["#fef7ed", "#fcefd5", "#f8e0b0", "#f1cc7a"]
+      },
+      "parchment-mid": {
+        "role": "neutral",
+        "displayName": "Parchment Mid",
+        "canonical": "#fcefd5",
+        "tonalRamp": ["#f8e0b0", "#fcefd5", "#fef7ed"]
+      },
+      "gold-rich": {
+        "role": "accent",
+        "displayName": "Gold Rich",
+        "canonical": "#b8932e",
+        "tonalRamp": ["#654d1f", "#7a5d22", "#937228", "#b8932e", "#cc9c1e", "#e3b135", "#eac462", "#f2db99", "#f9efd0", "#fdf8ed"]
+      },
+      "gold-pale": {
+        "role": "accent",
+        "displayName": "Gold Pale",
+        "canonical": "#f9efd0",
+        "tonalRamp": ["#f2db99", "#f9efd0", "#fdf8ed"]
+      },
+      "burgundy-deep": {
+        "role": "destructive",
+        "displayName": "Burgundy Deep",
+        "canonical": "#722f37",
+        "tonalRamp": ["#4a2127", "#5c282f", "#722f37", "#824a59", "#965a6a", "#b07888", "#cfa5b0", "#e5cfd4", "#f3e8eb", "#faf5f6"]
+      },
+      "burgundy-pale": {
+        "role": "destructive",
+        "displayName": "Burgundy Pale",
+        "canonical": "#f3e8eb",
+        "tonalRamp": ["#e5cfd4", "#f3e8eb", "#faf5f6"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page headings. Cormorant Garamond semibold italic, 1.875rem, used once per page."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, descriptions, messages. Georgia 0.875rem with 1.6 line-height, max 75ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, tab text, form labels, section headers. Cormorant Garamond medium italic, 0.75-0.875rem with 0.025em tracking."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Code blocks, textareas, chunk content, measurements. IBM Plex Mono 0.75rem with 1.6 line-height."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-hover",
+        "value": "0 2px 12px rgba(15, 23, 42, 0.06)",
+        "purpose": "Subtle lift on interactive cards and accordion headers during hover."
+      },
+      {
+        "name": "modal-overlay",
+        "value": "0 8px 32px rgba(15, 23, 42, 0.12)",
+        "purpose": "Floating panels and dialogs that need clear separation from the page surface."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-fade-in",
+        "value": "cubic-bezier(0, 0, 0.2, 1) 300ms",
+        "purpose": "Opacity-only entry for status indicators, file selection text, page transitions."
+      },
+      {
+        "name": "ease-slide-up",
+        "value": "cubic-bezier(0, 0, 0.2, 1) 350ms",
+        "purpose": "Combined opacity and translateY entry for content blocks appearing after load."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action button. Solid navy fill with parchment text. Used for confirm, save, send.",
+      "html": "<button class=\"ds-btn-primary\">Confirm &amp; Save</button>",
+      "css": ".ds-btn-primary {\n  background: #0f172a;\n  color: #fefcf6;\n  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  font-weight: 500;\n  font-style: italic;\n  letter-spacing: 0.025em;\n  padding: 0.625rem 1.5rem;\n  border: none;\n  border-radius: 0.5rem;\n  cursor: pointer;\n  transition: background-color 0.2s ease;\n}\n.ds-btn-primary:hover {\n  background: #1e253c;\n}\n.ds-btn-primary:focus-visible {\n  outline: 2px solid #b8932e;\n  outline-offset: 2px;\n}\n.ds-btn-primary:active {\n  background: #060b18;\n}\n.ds-btn-primary:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action button. Transparent with navy border. Used for cancel, download, secondary actions.",
+      "html": "<button class=\"ds-btn-ghost\">Cancel</button>",
+      "css": ".ds-btn-ghost {\n  background: transparent;\n  color: #475685;\n  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  font-weight: 500;\n  font-style: italic;\n  letter-spacing: 0.025em;\n  padding: 0.625rem 1.25rem;\n  border: 1px solid #8797be;\n  border-radius: 0.5rem;\n  cursor: pointer;\n  transition: border-color 0.2s ease, color 0.2s ease;\n}\n.ds-btn-ghost:hover {\n  border-color: #475685;\n  color: #1e253c;\n}\n.ds-btn-ghost:focus-visible {\n  outline: 2px solid #b8932e;\n  outline-offset: 2px;\n}\n.ds-btn-ghost:active {\n  background: #eff1f7;\n}"
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Delete action. Burgundy border and text. Used only for destructive actions.",
+      "html": "<button class=\"ds-btn-destructive\">Delete</button>",
+      "css": ".ds-btn-destructive {\n  background: transparent;\n  color: #722f37;\n  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;\n  font-size: 0.75rem;\n  font-weight: 500;\n  font-style: italic;\n  letter-spacing: 0.025em;\n  padding: 0.375rem 0.75rem;\n  border: 1px solid #cfa5b0;\n  border-radius: 0.5rem;\n  cursor: pointer;\n  transition: border-color 0.2s ease, color 0.2s ease;\n}\n.ds-btn-destructive:hover {\n  border-color: #722f37;\n  color: #5c282f;\n}\n.ds-btn-destructive:focus-visible {\n  outline: 2px solid #b8932e;\n  outline-offset: 2px;\n}\n.ds-btn-destructive:active {\n  background: #f3e8eb;\n}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Standard text input with parchment background and navy border. Focus shifts border to navy-500 with subtle ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Ask about your documents…\" />",
+      "css": ".ds-input {\n  width: 100%;\n  background: #fefcf6;\n  color: #0f172a;\n  font-family: Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  padding: 0.5rem 0.75rem;\n  border: 1px solid #dee2ee;\n  border-radius: 0.5rem;\n  outline: none;\n  transition: border-color 0.15s ease;\n}\n.ds-input::placeholder {\n  color: #8797be;\n  font-style: italic;\n}\n.ds-input:focus {\n  border-color: #475685;\n  box-shadow: 0 0 0 1px #b6c0d9;\n}"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "sidebar",
+      "description": "Fixed left sidebar with dark navy background. Active item marked by gold left border. SVG icons in consistent 1.5px stroke.",
+      "html": "<nav class=\"ds-sidebar\"><a href=\"#\" class=\"ds-nav-item active\">\n  <svg class=\"ds-nav-icon\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 8 12 3 7 8\"/><line x1=\"12\" y1=\"3\" x2=\"12\" y2=\"15\"/></svg>\n  Upload\n</a></nav>",
+      "css": ".ds-sidebar {\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  width: 15rem;\n  background: #0f172a;\n  border-right: 1px solid #2a3250;\n  display: flex;\n  flex-direction: column;\n  padding: 1.5rem 0.75rem;\n}\n.ds-nav-item {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.625rem 0.75rem;\n  margin-bottom: 0.125rem;\n  color: #dee2ee;\n  font-family: 'Cormorant Garamond', Georgia, serif;\n  font-size: 0.875rem;\n  font-weight: 500;\n  font-style: italic;\n  letter-spacing: 0.025em;\n  text-decoration: none;\n  border-left: 2px solid transparent;\n  border-radius: 0.5rem;\n  transition: background-color 0.15s ease, color 0.15s ease;\n}\n.ds-nav-item:hover {\n  background: #1e253c;\n  color: #fef7ed;\n}\n.ds-nav-item.active {\n  background: rgba(122, 93, 34, 0.15);\n  border-left-color: #b8932e;\n  color: #fef7ed;\n}\n.ds-nav-icon {\n  width: 18px;\n  height: 18px;\n  flex-shrink: 0;\n}"
+    },
+    {
+      "name": "White Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Standard container card. White background with navy pale border.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Regulation Details</h3><p class=\"ds-card-body\">Content goes here.</p></div>",
+      "css": ".ds-card {\n  background: #ffffff;\n  border: 1px solid #dee2ee;\n  border-radius: 0.75rem;\n  padding: 1.25rem;\n}\n.ds-card-title {\n  font-family: 'Cormorant Garamond', Georgia, serif;\n  font-size: 0.875rem;\n  font-weight: 600;\n  font-style: italic;\n  color: #36406a;\n  margin: 0 0 0.75rem;\n}\n.ds-card-body {\n  font-family: Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  line-height: 1.6;\n  color: #1e253c;\n  margin: 0;\n}"
+    },
+    {
+      "name": "Parchment Card",
+      "kind": "card",
+      "refersTo": "card-parchment",
+      "description": "Tonal card variant. Parchment warm background for assistant messages and accordion interiors.",
+      "html": "<div class=\"ds-card-parchment\"><p class=\"ds-card-body\">Assistant response appears here with source-grounded content.</p></div>",
+      "css": ".ds-card-parchment {\n  background: #fef7ed;\n  border: 1px solid #dee2ee;\n  border-radius: 0.75rem;\n  padding: 1rem 1.25rem;\n}\n.ds-card-parchment .ds-card-body {\n  font-family: Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  line-height: 1.6;\n  color: #1e253c;\n  margin: 0;\n}"
+    },
+    {
+      "name": "Segmented Tab Control",
+      "kind": "custom",
+      "refersTo": "tab-control",
+      "description": "Three-segment pill tab control for switching between Plain Text, Structured Data, and Chunks views during upload review.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\">\n  <button class=\"ds-tab active\" role=\"tab\" aria-selected=\"true\">Plain Text</button>\n  <button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Structured Data</button>\n  <button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Chunks</button>\n</div>",
+      "css": ".ds-tabs {\n  display: flex;\n  gap: 0.25rem;\n  padding: 0.25rem;\n  background: #ffffff;\n  border: 1px solid #dee2ee;\n  border-radius: 0.75rem;\n}\n.ds-tab {\n  flex: 1;\n  padding: 0.5rem 1rem;\n  background: transparent;\n  color: #475685;\n  font-family: 'Cormorant Garamond', Georgia, serif;\n  font-size: 0.875rem;\n  font-weight: 500;\n  font-style: italic;\n  letter-spacing: 0.025em;\n  border: none;\n  border-radius: 0.5rem;\n  cursor: pointer;\n  transition: background-color 0.15s ease, color 0.15s ease;\n}\n.ds-tab:hover {\n  color: #1e253c;\n}\n.ds-tab:focus-visible {\n  outline: 2px solid #b8932e;\n  outline-offset: 2px;\n}\n.ds-tab.active {\n  background: #0f172a;\n  color: #fef7ed;\n}"
+    },
+    {
+      "name": "Chat Message Bubble",
+      "kind": "custom",
+      "refersTo": "chat-bubble",
+      "description": "User messages in solid navy, assistant messages in parchment-tinted card. Both use serif body text.",
+      "html": "<div class=\"ds-chat\">\n  <div class=\"ds-chat-bubble ds-chat-user\">What are the penalties for unexcused absence?</div>\n  <div class=\"ds-chat-bubble ds-chat-assistant\">According to Article 14 of the Labor Regulation, unexcused absence carries a penalty of 200 EGP per day, up to a maximum of 5 days per month.</div>\n</div>",
+      "css": ".ds-chat {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.ds-chat-bubble {\n  max-width: 85%;\n  padding: 0.875rem 1.25rem;\n  font-family: Georgia, 'Times New Roman', serif;\n  font-size: 0.875rem;\n  line-height: 1.6;\n  white-space: pre-wrap;\n  border-radius: 1rem;\n}\n.ds-chat-user {\n  align-self: flex-end;\n  background: #0f172a;\n  color: #fef7ed;\n}\n.ds-chat-assistant {\n  align-self: flex-start;\n  background: #fef7ed;\n  color: #1e253c;\n  border: 1px solid #dee2ee;\n}"
+    },
+    {
+      "name": "Status Indicator — Loading",
+      "kind": "custom",
+      "refersTo": "status-loading",
+      "description": "Centered loading state with gold spinner ring and italic serif message.",
+      "html": "<div class=\"ds-status-loading\" role=\"status\" aria-live=\"polite\">\n  <svg class=\"ds-spinner\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\">\n    <circle cx=\"12\" cy=\"12\" r=\"10\" stroke=\"currentColor\" stroke-width=\"2.5\" opacity=\"0.2\"/>\n    <path d=\"M12 2a10 10 0 0 1 10 10\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n  </svg>\n  <span class=\"ds-status-text\">Extracting text from PDF…</span>\n</div>",
+      "css": ".ds-status-loading {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.75rem;\n  padding: 2.5rem 1rem;\n}\n.ds-spinner {\n  width: 1.25rem;\n  height: 1.25rem;\n  color: #b8932e;\n  animation: ds-spin 0.8s linear infinite;\n}\n@keyframes ds-spin {\n  to { transform: rotate(360deg); }\n}\n.ds-status-text {\n  font-family: 'Cormorant Garamond', Georgia, serif;\n  font-size: 0.875rem;\n  font-style: italic;\n  color: #475685;\n}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Law Library",
+    "overview": "DocIntelligence speaks the visual language of a great law library — quiet authority, bound volumes, gold lettering on spines, the weight of precedent made accessible. The palette pairs deep navy with warm parchment, evoking leather-bound ledgers and fine paper stock. Gold accents are deployed sparingly, marking important moments the way gilded page edges catch light. The system feels heavy with tradition but human in its warmth: this is software that takes your documents as seriously as you do.\n\nThe design operates in Operate mode — legal professionals completing structured tasks. Scanability, consistency, and clarity govern every decision. Expression lives in the precise details: the italic serif headings, the gold border that marks the active navigation item, the ornamental corners framing the upload zone. Nothing shouts. Everything is considered.",
+    "keyCharacteristics": [
+      "Dark navy sidebar anchors every page with institutional gravity",
+      "Cormorant Garamond italic headings carry the library's typographic heritage",
+      "Parchment-warm backgrounds soften the data density",
+      "Gold appears on ~5% of any screen — its rarity is the point",
+      "IBM Plex Mono for code, data, and measurements — precision where it matters",
+      "Subtle shadows lift cards and modals; the baseline is flat tonal contrast"
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Gold is the system's only accent. No blue, no teal, no secondary chromatic color. The palette's richness comes from the tonal range within navy and parchment, not from additional hues.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif-Forward Rule",
+        "body": "Serifs carry the system's entire voice outside of data displays. Sans-serif faces do not appear in the design. The mono face is reserved for code, measurements, and structured output — it is never a 'technical' costume for label text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Shadows appear only in response to state (hover, focus, or modal elevation). An element without interactive behavior never gets a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Cormorant Garamond italic for all headings, labels, and button text — it is the system's typographic voice.",
+      "Do keep gold accent usage below 5% of any screen. Its power is in scarcity.",
+      "Do use the navy deep / parchment light tonal contrast as the primary depth mechanism; shadows are secondary.",
+      "Do render all icons as inline SVGs with 1.5px consistent stroke weight, inheriting text color.",
+      "Do keep body text at 0.875rem with 1.6 line-height in Georgia — no smaller, no tighter for running text.",
+      "Do use IBM Plex Mono exclusively for code, data values, measurements, and structured output — never for labels or prose."
+    ],
+    "donts": [
+      "Don't introduce a second accent color. Gold is it. No blue, no teal, no green beyond what Burgundy already covers for errors.",
+      "Don't use sans-serif fonts anywhere. The system's voice is serif-only outside of data displays.",
+      "Don't add shadows to elements without interactive states. Flat is the default.",
+      "Don't use colored left/right borders above 2px. The sidebar's 2px gold indicator is the ceiling.",
+      "Don't use gradient text, glass effects, or blur-backdrop. The system's materials are paper, ink, and gold leaf — not glass or light.",
+      "Don't nest cards inside cards. Use borderless tonal differentiation (parchment-warm background) for nested content within a card."
+    ]
+  }
+}
