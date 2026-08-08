@@ -1,36 +1,64 @@
-<div class="flex min-h-screen">
-  <aside class="fixed inset-y-0 left-0 z-30 flex w-60 flex-col border-r border-navy-200 bg-navy-900">
-    <div class="flex items-center gap-3 px-6 pb-4 pt-7">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-        <rect x="2" y="4" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-        <path d="M8 10h12M8 14h10M8 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="4" y="2" width="3" height="12" rx="1" fill="currentColor" opacity="0.3"/>
-      </svg>
-      <span class="font-serif-display text-xl font-semibold italic tracking-tight text-parchment-100">DocIntelligence</span>
+<!--
+THESIS: A calm evidence library for regulatory review; it rejects the heavy fixed-sidebar admin shell.
+OWN-WORLD: Cool paper, pine ink, sage work surfaces, clay attention marks, editorial display type, quiet controls.
+STORY: Start with a source, inspect its interpretation, then save only what has been verified.
+FIRST VIEWPORT: A slim horizontal library header above a spacious, task-focused work surface.
+FORM: Evidence Library, selected concept 03. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md.
+-->
+<div class="min-h-screen bg-parchment-50">
+  <header class="sticky top-0 z-30 border-b border-navy-200 bg-white/95">
+    <div class="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-5 py-4 sm:px-8 lg:px-10">
+      <a
+        routerLink="/upload"
+        class="group flex items-center gap-3 text-navy-900 focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-500"
+        aria-label="DocIntelligence home"
+      >
+        <span class="relative grid h-10 w-10 place-items-center rounded-md bg-navy-900 text-white shadow-[0_5px_14px_rgba(24,61,53,0.18)]" aria-hidden="true">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/>
+            <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/>
+            <path d="M8 7h1.5M15 7h1.5" opacity=".72"/>
+          </svg>
+          <span class="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-gold-500"></span>
+        </span>
+        <span class="font-serif-display text-xl font-semibold tracking-[-0.025em]">DocIntelligence<span class="text-gold-500">.</span></span>
+      </a>
+
+      <nav class="order-3 flex w-full items-center gap-1 sm:order-none sm:w-auto" aria-label="Main navigation">
+        @for (item of navItems; track item.path) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="bg-parchment-200 text-navy-900"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex min-h-10 flex-1 items-center justify-center gap-2.5 rounded-md px-4 text-sm font-semibold text-navy-500 transition-colors hover:bg-parchment-100 hover:text-navy-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 sm:flex-none"
+          >
+            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-parchment-100 text-navy-600 transition-colors" aria-hidden="true">
+              @switch (item.label) {
+                @case ('Upload') {
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 16V4m0 0L8 8m4-4 4 4M5 14v5h14v-5" />
+                  </svg>
+                }
+                @case ('Search') {
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" />
+                  </svg>
+                }
+                @case ('Documents') {
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h9l3 3v15H6z" /><path d="M9 11h6M9 15h6" />
+                  </svg>
+                }
+              }
+            </span>
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      </nav>
     </div>
+  </header>
 
-    <nav class="flex-1 px-3 py-4" aria-label="Main navigation">
-      @for (item of navItems; track item.path) {
-        <a
-          [routerLink]="item.path"
-          routerLinkActive="bg-gold-800/15 border-gold-500 text-parchment-100"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="group mb-0.5 flex items-center gap-3 rounded-lg border-l-2 border-transparent px-3 py-2.5 text-sm font-medium text-navy-200 transition-colors hover:bg-navy-800 hover:text-parchment-100"
-        >
-          <span class="flex h-5 w-5 items-center justify-center transition-colors" aria-hidden="true" [innerHTML]="item.svgIcon"></span>
-          <span>{{ item.label }}</span>
-        </a>
-      }
-    </nav>
-
-    <div class="border-t border-navy-700 px-6 py-4">
-      <p class="font-serif-display text-xs italic tracking-wide text-navy-400">Document Intelligence</p>
-    </div>
-  </aside>
-
-  <div class="ml-60 flex flex-1 flex-col">
-    <main class="flex-1 px-8 py-8">
-      <router-outlet />
-    </main>
-  </div>
+  <main class="px-5 py-10 sm:px-8 sm:py-14 lg:px-10">
+    <router-outlet />
+  </main>
 </div>

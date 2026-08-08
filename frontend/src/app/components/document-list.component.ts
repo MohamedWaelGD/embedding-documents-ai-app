@@ -19,8 +19,8 @@ import { DocumentActionsComponent } from './document-actions.component';
         message="No documents uploaded yet. Upload your first document to get started."
       />
     } @else {
-      <div class="overflow-hidden rounded-lg border border-navy-200 bg-white">
-        <table class="w-full text-left text-sm">
+      <div class="overflow-x-auto rounded-xl border border-navy-200 bg-white">
+        <table class="min-w-[42rem] w-full text-left text-sm">
           <thead class="border-b border-navy-200 bg-parchment-100/50">
             <tr>
               <th class="px-5 py-3 font-serif-display text-xs font-semibold uppercase italic tracking-wider text-navy-500">

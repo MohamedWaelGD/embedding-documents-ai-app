@@ -1,95 +1,103 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-serif-display: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
-  --font-serif-body: 'Georgia', 'Times New Roman', serif;
-  --font-mono-data: 'IBM Plex Mono', 'Consolas', 'Courier New', monospace;
+  --font-serif-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  --font-serif-body: Candara, 'Segoe UI', Arial, sans-serif;
+  --font-mono-data: 'Cascadia Mono', 'IBM Plex Mono', Consolas, monospace;
 
-  --color-navy-50: #eff1f7;
-  --color-navy-100: #dee2ee;
-  --color-navy-200: #b6c0d9;
-  --color-navy-300: #8797be;
-  --color-navy-400: #5f70a0;
-  --color-navy-500: #475685;
-  --color-navy-600: #36406a;
-  --color-navy-700: #2a3250;
-  --color-navy-800: #1e253c;
-  --color-navy-900: #0f172a;
-  --color-navy-950: #060b18;
+  /* Legacy token names intentionally map to the Evidence Library palette so
+     every existing workflow inherits the selected direction consistently. */
+  --color-navy-50: #f1f6f3;
+  --color-navy-100: #e2ece7;
+  --color-navy-200: #c5d7cf;
+  --color-navy-300: #9fbaae;
+  --color-navy-400: #718f83;
+  --color-navy-500: #526f65;
+  --color-navy-600: #3d5c52;
+  --color-navy-700: #2d4c43;
+  --color-navy-800: #23433a;
+  --color-navy-900: #183d35;
+  --color-navy-950: #0d2923;
 
-  --color-parchment-50: #fefcf6;
-  --color-parchment-100: #fef7ed;
-  --color-parchment-200: #fcefd5;
-  --color-parchment-300: #f8e0b0;
-  --color-parchment-400: #f1cc7a;
-  --color-parchment-500: #e8b84d;
-  --color-parchment-600: #d4a030;
+  --color-parchment-50: #f5f8f6;
+  --color-parchment-100: #edf3ef;
+  --color-parchment-200: #dce8e1;
+  --color-parchment-300: #c9dcd2;
+  --color-parchment-400: #aac9ba;
+  --color-parchment-500: #82ad99;
+  --color-parchment-600: #628f7b;
 
-  --color-gold-50: #fdf8ed;
-  --color-gold-100: #f9efd0;
-  --color-gold-200: #f2db99;
-  --color-gold-300: #eac462;
-  --color-gold-400: #e3b135;
-  --color-gold-500: #cc9c1e;
-  --color-gold-600: #b8932e;
-  --color-gold-700: #937228;
-  --color-gold-800: #7a5d22;
-  --color-gold-900: #654d1f;
+  --color-gold-50: #fff7f2;
+  --color-gold-100: #fbe8de;
+  --color-gold-200: #f3cdbd;
+  --color-gold-300: #e8aa91;
+  --color-gold-400: #d98566;
+  --color-gold-500: #c56a4a;
+  --color-gold-600: #aa5035;
+  --color-gold-700: #873d2a;
+  --color-gold-800: #6d3326;
+  --color-gold-900: #592c23;
 
-  --color-burgundy-50: #faf5f6;
-  --color-burgundy-100: #f3e8eb;
-  --color-burgundy-200: #e5cfd4;
-  --color-burgundy-300: #cfa5b0;
-  --color-burgundy-400: #b07888;
-  --color-burgundy-500: #965a6a;
-  --color-burgundy-600: #824a59;
-  --color-burgundy-700: #722f37;
-  --color-burgundy-800: #5c282f;
-  --color-burgundy-900: #4a2127;
+  --color-burgundy-50: #fff5f4;
+  --color-burgundy-100: #fde5e1;
+  --color-burgundy-200: #f9c9c1;
+  --color-burgundy-300: #f09d90;
+  --color-burgundy-400: #df6b5c;
+  --color-burgundy-500: #c8493c;
+  --color-burgundy-600: #aa352d;
+  --color-burgundy-700: #8b2c27;
+  --color-burgundy-800: #742824;
+  --color-burgundy-900: #622622;
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
   --radius-xl: 1rem;
 
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-slide-up: slide-up 0.35s ease-out;
+  --animate-fade-in: fade-in 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slide-up 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 
   @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @keyframes slide-up {
-    from {
-      transform: translateY(0.5rem);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    from { transform: translateY(0.35rem); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
 }
 
 @layer base {
+  * { border-color: var(--color-navy-200); }
+
   html {
     font-family: var(--font-serif-body);
     color: var(--color-navy-900);
+    background: var(--color-parchment-50);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  body {
-    background-color: var(--color-parchment-50);
-  }
+  body { margin: 0; background-color: var(--color-parchment-50); }
+  button, input, textarea, select { font: inherit; }
+  button, a { -webkit-tap-highlight-color: transparent; }
 
   ::selection {
-    background-color: var(--color-gold-200);
-    color: var(--color-navy-900);
+    background-color: var(--color-parchment-300);
+    color: var(--color-navy-950);
+  }
+}
+
+@layer utilities {
+  .italic { font-style: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

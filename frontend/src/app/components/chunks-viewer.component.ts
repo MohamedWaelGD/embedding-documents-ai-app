@@ -15,7 +15,7 @@ import { TextChunk } from '../models';
       @for (chunk of chunks(); track chunk.index) {
         <div class="overflow-hidden rounded-lg border border-navy-200 bg-white">
           <div class="flex items-center justify-between border-b border-navy-100 px-4 py-2">
-            <span class="font-serif-display text-sm font-medium text-navy-700">Chunk {{ chunk.index + 1 }}</span>
+            <span class="font-serif-display text-sm font-medium text-navy-700">Chunk #{{ chunk.index + 1 }}</span>
             <span class="font-mono-data text-xs text-navy-400">{{ chunk.content.length | number }} chars</span>
           </div>
           <pre
